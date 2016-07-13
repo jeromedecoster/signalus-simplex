@@ -15,6 +15,7 @@ Package [on npm](https://www.npmjs.com/package/signalus-simplex)
 * [add](#addcb-ctx-priority)
 * [clear](#clear)
 * [dispatch](#dispatcharg-arg-)
+* [has](#hascb-ctx)
 * [once](#oncecb-ctx-priority)
 * [remove](#removecb-ctx)
 
@@ -137,6 +138,35 @@ update.add(fun2)
 update.dispatch()
 ```
 
+#### has(cb, [ctx])
+
+Check if `cb` is already registered
+
+Return `true` if the exact same association `cb` / `ctx` was found
+
+```js
+const Signal = require('signalus-simplex')
+
+var update = new Signal()
+
+function cb() {
+  console.log('hello world')
+}
+
+// false
+update.has(cb)
+
+update.add(cb)
+
+// true
+update.has(cb)
+
+update.remove(cb)
+
+// false
+update.has(cb)
+```
+
 #### once(cb, [ctx], [priority])
 
 Like `add` but the callback `cb` will be invoked only once
@@ -162,7 +192,7 @@ update.dispatch()
 update.dispatch() // do nothing
 ```
 
-## remove(cb, [ctx])
+#### remove(cb, [ctx])
 
 Remove the listener `cb`
 

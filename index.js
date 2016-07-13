@@ -29,6 +29,13 @@ Signal.prototype.once = function(cb, ctx, priority) {
   return this.add(cb, ctx, priority, true)
 }
 
+Signal.prototype.has = function(cb, ctx) {
+  for (var i = 0, n = this.arr.length; i < n; i++) {
+    if (this.arr[i].cb === cb && this.arr[i].ctx === ctx) return true
+  }
+  return false
+}
+
 Signal.prototype.remove = function(cb, ctx) {
   if (typeof cb !== 'function') throw new Error(msg)
 
